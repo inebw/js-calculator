@@ -1,6 +1,6 @@
 body {
     height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:monospace;
 }
 .container {
     border: 2px solid black;
@@ -11,6 +11,7 @@ body {
     align-items: center;
     padding: 4px;
     justify-self: center;
+    background-color: lightgrey;
 }
 
 .bottom {
@@ -39,6 +40,13 @@ button {
     font-weight: 550;
 }
 
+.button-on-hover {
+    width: 105px;
+    height: 105px;
+    font-size: 44px;
+    font-weight: 550;
+}
+
 .answer,
 input {
     margin: 4px;
@@ -49,4 +57,22 @@ input {
     font-size: 32px;
     text-align: right;
     text-align: end;
+    background-color: rgb(225, 223, 223);
+}
+
+.number,
+.dot {
+    background-color: white;
+}
+
+.operation {
+    background-color: rgb(236, 91, 91);
+}
+
+.operation.equal-to {
+    background-color: rgb(242, 242, 131);
+}
+
+.clear-button {
+    background-color: rgb(75, 127, 210);
 }

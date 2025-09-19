@@ -64,12 +64,62 @@ function returnCalculation(str) {
         } 
     }
     result = numbers.shift()
-    console.log(result)
+    
+    if (result - parseInt(result) == 0) {
+        return parseInt(result)
+    }
+
     return result.toFixed(2)
+}
+
+function darkenColor(str) {
+    str = str.replaceAll('rgb(', '');
+    str = str.replaceAll(' ', '');
+    str = str.replaceAll(')', '');
+    
+    let arr = str.split(',');
+    if (arr.includes('255')) {
+        return lightenColor(arr)
+    }
+    arr = arr.map(item=> {
+        let col = +item + 50;
+        col = col > 255 ? 255 : col
+        return col
+    });
+    newStr = "rgb("
+    for (let i = 0; i < arr.length; i++) {
+        if (i == arr.length - 1) {
+            newStr += arr[i] + ')'
+        } else {
+            newStr += arr[i] + ", ";
+        }
+    }
+    return newStr
+}
+
+function lightenColor(arr) {
+    arr = arr.map(item=> {
+        let col = +item - 50;
+        col = col > 255 ? 255 : col
+        return col
+    });
+    newStr = "rgb("
+    for (let i = 0; i < arr.length; i++) {
+        if (i == arr.length - 1) {
+            newStr += arr[i] + ')'
+        } else {
+            newStr += arr[i] + ", ";
+        }
+    }
+    return newStr
 }
 
 equalTo.addEventListener('click', () => {
     let value = userInput.value;
+    if (value == '') {
+        answer.textContent = 'Enter something bruh'
+        return
+    }
     let result = returnCalculation(value);
     answer.textContent = `Result: ${result}`
     userInput.value = "";
@@ -78,7 +128,7 @@ equalTo.addEventListener('click', () => {
 
 clearButton.addEventListener('click', () => {
     userInput.value = "";
-    answer.textContent = "Result: "
+    answer.textContent = "Input Cleared!"
 })
 
 const allButtons = document.querySelectorAll('button');
@@ -107,8 +157,22 @@ allButtons.forEach((elem) => {
         
         if (elem.textContent !== '=' && elem.textContent !== 'C'){
             userInput.value += elem.textContent;
-            answer.textContent = "Result: ";
+            answer.textContent = "Keep on typing!";
         }
         
+    })
+})
+
+let bg; 
+allButtons.forEach((elem) => {
+    elem.addEventListener('mouseover', (e) => {
+        bg = window.getComputedStyle(elem).backgroundColor
+        elem.style.backgroundColor = darkenColor(bg);
+    })
+})
+
+allButtons.forEach((elem) => {
+    elem.addEventListener('mouseout', (e) => {
+        elem.style.backgroundColor = bg
     })
 })
