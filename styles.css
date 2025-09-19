@@ -3,6 +3,7 @@ body {
     font-family:monospace;
 }
 .container {
+    margin-top: 32px;
     border: 2px solid black;
     width: fit-content;
     display: flex;
@@ -75,4 +76,8 @@ input {
 
 .clear-button {
     background-color: rgb(75, 127, 210);
+}
+
+.backspace {
+    background-color: rgb(83, 178, 66);
 }

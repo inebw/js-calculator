@@ -1,7 +1,8 @@
 const equalTo = document.querySelector('.equal-to');
 const clearButton = document.querySelector('.clear-button');
 const userInput = document.querySelector('.user-input');
-const answer = document.querySelector('.answer')
+const answer = document.querySelector('.answer');
+const backspace = document.querySelector('.backspace');
 
 
 function removeBrackets(str) {
@@ -14,6 +15,9 @@ function removeBrackets(str) {
             let j = i + 1;
             let op = 0;
             while (str[j] != ')' && op == 0) {
+                if (str[j] === undefined) {
+                    return NaN
+                }
                 if (str[j] == '(') op++;
                 if (str[j] == ')') op--;
                 j++;
@@ -34,6 +38,7 @@ function returnCalculation(str) {
     str = str.replaceAll(' ', '');
     if (str.includes('(')) {
         str = removeBrackets(str);
+        if (str == NaN) return NaN
     }
     console.log(str)
     let numbers = str.split(/[+\-/*]+/);
@@ -116,11 +121,15 @@ function lightenColor(arr) {
 
 equalTo.addEventListener('click', () => {
     let value = userInput.value;
-    if (value == '') {
+    if ((value == '') || !(/[0-9]/.test(value))) {
         answer.textContent = 'Enter something bruh'
         return
     }
     let result = returnCalculation(value);
+    if (result == NaN) {
+        answer.textContent = `Enter something valid`;
+        return
+    }
     answer.textContent = `Result: ${result}`
     userInput.value = "";
 
@@ -155,7 +164,7 @@ allButtons.forEach((elem) => {
             if (op > cl) return
         }
         
-        if (elem.textContent !== '=' && elem.textContent !== 'C'){
+        if (elem.textContent !== '=' && elem.textContent !== 'C' && elem.textContent != `⇐`){
             userInput.value += elem.textContent;
             answer.textContent = "Keep on typing!";
         }
@@ -175,4 +184,11 @@ allButtons.forEach((elem) => {
     elem.addEventListener('mouseout', (e) => {
         elem.style.backgroundColor = bg
     })
+})
+
+
+backspace.addEventListener('click', () => {
+    let tempInput = userInput.value;
+    tempInput = tempInput.slice(0, tempInput.length - 1);
+    userInput.value = tempInput;
 })
