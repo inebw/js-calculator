@@ -65,7 +65,7 @@ function returnCalculation(str) {
     }
     result = numbers.shift()
     console.log(result)
-    return result
+    return result.toFixed(2)
 }
 
 equalTo.addEventListener('click', () => {
@@ -85,6 +85,26 @@ const allButtons = document.querySelectorAll('button');
 
 allButtons.forEach((elem) => {
     elem.addEventListener('click', () => {
+        const currValue = userInput.value
+        if (elem.textContent == '.') {
+            op = 0
+            cl = 0
+            for (let i = 0; i < currValue.length; i++) {
+                if (op > 0) {
+                    if (
+                        currValue[i] == '+' ||
+                        currValue[i] == '-' ||
+                        currValue[i] == '/' ||
+                        currValue[i] == 'x' 
+                    ) {
+                        cl++
+                    }
+                }
+                if (currValue[i] == '.') op++;
+            }
+            if (op > cl) return
+        }
+        
         if (elem.textContent !== '=' && elem.textContent !== 'C'){
             userInput.value += elem.textContent;
             answer.textContent = "Result: ";
