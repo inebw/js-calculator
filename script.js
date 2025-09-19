@@ -189,6 +189,9 @@ allButtons.forEach((elem) => {
 
 backspace.addEventListener('click', () => {
     let tempInput = userInput.value;
+    if (tempInput == "") {
+        answer.textContent = "Nothing to Clear!"
+    }
     tempInput = tempInput.slice(0, tempInput.length - 1);
     userInput.value = tempInput;
 })
